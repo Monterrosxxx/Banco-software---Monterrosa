@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Monterrosa xd</title>
+    <link rel="stylesheet" href="bootstrap-5.3.1-dist/css/bootstrap.min.css">
+</head>
+<body style="background-color: rgb(39, 177, 147);">
+    <div class="container">
+        <div class="row bg-dark-subtle py-3">
+            <div class="col-6">
+                <img src="img/software.jpg" alt="software en el retiro XD" class="img-fluid">
+            </div>
+            <div class="col-6">
+                <img src="img/download.png" alt="Ilustración del banco" class="img-fluid float-end">
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12 col-md-6 offset-md-3">
+                <form id="formulario">
+                    <div class="mb-3">
+                        <h3><strong><label for="nombre" class="form-label">Nombre:</label></strong></h3>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre...">
+                    </div>
+                    <div class="mb-3">
+                        <h3><strong><label for="cantidad" class="form-label">Cantidad que se va a retirar:</label></h3></strong>
+                        <input type="number" class="form-control" id="cantidad" placeholder="Ingrese la cantidad en dólares...">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Retirar dinero</button>
+                </form>
+            </div>
+        </div>
+        <div class="row mt-4 d-none" id="tabla">
+            <div class="col-12 col-md-6 offset-md-3">
+                <table class="table table-bordered table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Denominación</th>
+                            <th scope="col">Cantidad de billetes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>$100</td>
+                            <td id="cien"></td>
+                        </tr>
+                        <tr>
+                            <td>$50</td>
+                            <td id="cincuenta"></td>
+                        </tr>
+                        <tr>
+                            <td>$20</td>
+                            <td id="veinte"></td>
+                        </tr>
+                        <tr>
+                            <td>$10</td>
+                            <td id="diez"></td>
+                        </tr>
+                        <tr>
+                            <td>$5</td>
+                            <td id="cinco"></td>
+                        </tr>
+                        <tr>
+                            <td>$1</td>
+                            <td id="uno"></td>
+                        </tr>                        
+                    </tbody>                    
+                </table>                
+            </div>            
+        </div>        
+        <div class="row mt-4 d-none" id="mensaje">
+            <div class="col-12 col-md-6 offset-md-3 alert alert-dark text-center" role="alert">                
+            </div>            
+        </div>     
+        <br>  
+        <br> 
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>   
+    <script src="bootstrap-5.3.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let formulario = document.getElementById("formulario");
+        let tabla = document.getElementById("tabla");
+        let mensaje = document.getElementById("mensaje");
+    
+        formulario.addEventListener("submit", function(event) {
+            event.preventDefault();
+    
+            let nombre = document.getElementById("nombre").value;
+            let cantidad = document.getElementById("cantidad").value;
+    
+            if (nombre === "" || cantidad <= 0) {
+                alert("Nombre o cantidad de efectivo no valida, ingrese los datos correctamente.");
+            } else {
+                let cien = Math.floor(cantidad / 100);
+                let resto = cantidad % 100;
+                let cincuenta = Math.floor(resto / 50);
+                resto = resto % 50;
+                let veinte = Math.floor(resto / 20);
+                resto = resto % 20;
+                let diez = Math.floor(resto / 10);
+                resto = resto % 10;
+                let cinco = Math.floor(resto / 5);
+                resto = resto % 5;
+                let uno = resto;
+    
+                document.getElementById("cien").innerText = cien;
+                document.getElementById("cincuenta").innerText = cincuenta;
+                document.getElementById("veinte").innerText = veinte;
+                document.getElementById("diez").innerText = diez;
+                document.getElementById("cinco").innerText = cinco;
+                document.getElementById("uno").innerText = uno;
+    
+                mensaje.innerText = `Hola, mucho gusto ${nombre}. Has hecho una transacción de ${cantidad} dólares en efectivo.`;
+                mensaje.style.fontWeight = "bold"; 
+    
+                tabla.classList.remove("d-none");
+                mensaje.classList.remove("d-none");
+            }
+        });
+    </script>
+    
+</body>
+</html>
